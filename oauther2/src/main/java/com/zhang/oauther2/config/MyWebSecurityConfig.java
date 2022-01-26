@@ -31,6 +31,6 @@ public class MyWebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/oauth/token_key").permitAll();
         http.authorizeRequests().anyRequest().permitAll();
-//        super.configure(http);
+//        http.authorizeRequests().antMatchers("/**").permitAll();
     }
 }

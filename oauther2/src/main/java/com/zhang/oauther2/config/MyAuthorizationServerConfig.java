@@ -46,16 +46,17 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
         security
+                //允许客户端访问授权接口，否则请求token返回401
+                .allowFormAuthenticationForClients()
                 //默认token不允许获取
                 .tokenKeyAccess("permitAll()")
-                //默认不允许客户端表单登录
-                .allowFormAuthenticationForClients()
                 //获取token的时候需要验证信息
                 .checkTokenAccess("isAuthenticated()");
     }
 
     /**
      * 添加两个客户端
+     * redirectUris可以不用配置，这个时候所有都是生效的，配置后就固定了某些跳转
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -64,16 +65,16 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
                 .secret(passwordEncoder.encode("123"))
                 .authorizedGrantTypes("implicit", "refresh_token", "password", "authorization_code", "client_credentials")
                 .authorities("admin", "user")
-                .scopes("read", "write", "all")
+                .scopes("read", "write", "all","ROLE_ADMIN")
                 .accessTokenValiditySeconds(60000)
                 .refreshTokenValiditySeconds(120000)
                 .redirectUris("http://mrbird.cc")
                 .and()
-                .withClient("client_id")
+                .withClient("app-two")
                 .secret(passwordEncoder.encode("123"))
                 .authorizedGrantTypes("implicit", "refresh_token", "password", "authorization_code", "client_credentials")
                 .authorities("admin", "user")
-                .scopes("read", "write", "all")
+                .scopes("read", "write", "all","ROLE_ADMIN")
                 .accessTokenValiditySeconds(60000)
                 .refreshTokenValiditySeconds(120000)
                 .redirectUris("http://mrbird.cc");
@@ -85,13 +86,13 @@ public class MyAuthorizationServerConfig extends AuthorizationServerConfigurerAd
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
-                //设置token的保存方式
+                //token的保存方式
                 .tokenStore(tokenStore)
                 //生成token的工具
                 .accessTokenConverter(jwtAccessTokenConverter)
-                //注入bean
+                //鉴权管理才能采用password模式
                 .authenticationManager(authenticationManager)
-                //刷新token需要校验用户
+                //登录的时候进行账号校验
                 .userDetailsService(myUserDetailService);
     }
 }
