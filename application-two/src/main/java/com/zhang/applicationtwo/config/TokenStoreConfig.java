@@ -1,4 +1,4 @@
-package com.zhang.oauther2.config;
+package com.zhang.applicationtwo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -6,21 +6,16 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-/**
- * @Copyright 深圳金雅福控股集团有限公司
- * @Author: zhangfanjun
- * @Date 2021/11/17
- * @Version: 1.0
- */
+
 @Configuration
 public class TokenStoreConfig {
+
     @Bean
     public TokenStore myTokenStore() {
         //采用jwt保存，实际上并没有保存，jwt是去中心化加密，不需要保存的，校验通过即可
         JwtTokenStore jwtTokenStore = new JwtTokenStore(getJwtAccessTokenConverter());
         return jwtTokenStore;
     }
-
     /**
      * 设置加盐
      * @author zfj
@@ -30,7 +25,7 @@ public class TokenStoreConfig {
     public JwtAccessTokenConverter getJwtAccessTokenConverter(){
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
         jwtAccessTokenConverter.setSigningKey("sign");
-        //用于验证加盐秘钥，这里必须是一样的
+        //用于验证加盐秘钥
         jwtAccessTokenConverter.setVerifierKey("sign");
         return jwtAccessTokenConverter;
     }

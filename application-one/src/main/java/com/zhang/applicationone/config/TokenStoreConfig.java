@@ -10,7 +10,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 @Configuration
 public class TokenStoreConfig {
 
-    @Bean
+    @Bean("myTokeStore")
     public TokenStore myTokenStore() {
         //采用jwt保存，实际上并没有保存，jwt是去中心化加密，不需要保存的，校验通过即可
         JwtTokenStore jwtTokenStore = new JwtTokenStore(getJwtAccessTokenConverter());
@@ -25,7 +25,8 @@ public class TokenStoreConfig {
     public JwtAccessTokenConverter getJwtAccessTokenConverter(){
         JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
         jwtAccessTokenConverter.setSigningKey("sign");
-        jwtAccessTokenConverter.setVerifierKey("dev");
+        //用于验证加盐秘钥
+        jwtAccessTokenConverter.setVerifierKey("sign");
         return jwtAccessTokenConverter;
     }
 }
