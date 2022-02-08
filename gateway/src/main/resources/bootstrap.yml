@@ -1,0 +1,30 @@
+#spring:
+#  cloud:
+#    gateway:
+#      routes:
+#        - id: aa
+#        - uri: lb://oauther2
+#        - predicates:
+#            - Path=/oauther2/**
+#      httpclient:
+#        connect-timeout: 1000
+#        response-timeout: 3s
+#      default-filters:
+##        #注释后动态关闭
+##        - name: CircuitBreaker
+##          args:
+##            name: cacheCustomizer
+##            fallbackUri: forward:/cache/broken
+#        #熔断
+#        - name: Hystrix
+#          args:
+#            name: fallbackcmd
+#            fallbackUri: forward:/hystrix/defaultError
+#        #重试
+#        - name: Retry
+#          args:
+#            retries: 1
+#            #500，502状态重试
+#            statuses: BAD_GATEWAY,INTERNAL_SERVER_ERROR,SERVICE_UNAVAILABLE
+#            # 只有get和post接口重试
+#            methods: GET,POST

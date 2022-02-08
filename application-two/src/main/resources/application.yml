@@ -4,11 +4,11 @@ security:
     client:
       client-id: app-two
       client-secret: 123
-      user-authorization-uri: http://127.0.0.1:9900/server/oauth/authorize
-      access-token-uri: http://127.0.0.1:9900/server/oauth/token
+      user-authorization-uri: http://127.0.0.1:9900/oauther2/oauth/authorize
+      access-token-uri: http://127.0.0.1:9900/oauther2/oauth/token
     resource:
       jwt:
-        key-uri: http://127.0.0.1:9900/server/oauth/token_key
+        key-uri: http://127.0.0.1:9900/oauther2/oauth/token_key
 server:
   port: 9902
   servlet:
