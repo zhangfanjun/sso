@@ -1,12 +1,12 @@
-#security:
-#  oauth2:
-#    client:
-#      client-id: app-one
-#      client-secret: 123
-#      user-authorization-uri: http://127.0.0.1:9900/oauther2/oauth/authorize
-#      access-token-uri: http://127.0.0.1:9900/oauther2/oauth/token
-##      grant-type: pasword
-#    resource:
-#      jwt:
-#        key-uri: http://127.0.0.1:9900/oauther2/oauth/token_key
-#        key-value: dev
+security:
+  oauth2:
+    client:
+      client-id: app-one
+      client-secret: 123
+      user-authorization-uri: http://127.0.0.1:9900/oauther2/oauth/authorize
+      access-token-uri: http://127.0.0.1:9900/oauther2/oauth/token
+#      grant-type: pasword
+    resource:
+      jwt:
+        key-uri: http://127.0.0.1:9900/oauther2/oauth/token_key
+        key-value: dev
